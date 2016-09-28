@@ -3,11 +3,12 @@
   var canvas = document.querySelector('canvas');
   var ctx = canvas.getContext('2d');
   var counter = 0;
-  var max = 55;
+  var pos = 0;
+  var max = 250;
   var width;
   var height;
-  var SCALEX = 92;
-  var SCALEY = 43;
+  var SCALEX = 272;
+  var SCALEY = -13;
 
   function reset() {
     ctx.clearRect(0, 0, width, height);
@@ -18,22 +19,38 @@
   }
 
   function render() {
+    var h = 100 / counter;
+    var opacity = 0.01;
+    var stroke = Math.floor(Math.random() * 175) + 50;
+    var stroke2 = Math.floor(Math.random() * 255) + 150;
     ctx.beginPath();
-    ctx.lineWidth = 5 * (counter - 1);
-    ctx.strokeStyle = 'rgba(25, ' + Math.floor(Math.random() * counter * 1) + ', 25, 0.1)';
-    ctx.moveTo(counter, 0);
-    ctx.lineTo(10 * SCALEX, 110 * counter * SCALEY);
-    ctx.lineTo(100 * SCALEX, 140 * counter * SCALEY);
-    ctx.lineTo(-300 * SCALEX, -40 * counter * SCALEY);
-    ctx.lineTo(100 * SCALEX, 40 * counter * SCALEY);
+    ctx.lineWidth = 1 * (counter - 1);
+    if (counter < 90) {
+      stroke = 255;
+      stroke2 = 55;
+      opacity = 0.02;
+    }
+    ctx.strokeStyle = 'rgba(' + stroke2 + ', ' + stroke + ', 245, ' + opacity +')';
+    ctx.moveTo(offsetx, offsety);
+    // ctx.lineTo(300 * SCALEX, -40 * counter * SCALEY);
+    // ctx.lineTo(100 * SCALEX, -110 * counter * SCALEY);
+    var offsetx = Math.sin(counter / 10) * 200;
+    var offsety = Math.cos(counter / 10) * 200;
+    ctx.lineTo((1 * SCALEX) + offsetx, (h * SCALEY) + offsety);
+    //ctx.lineTo((1 * SCALEX) + offsetx, (h + 20 * SCALEY) + offsety);
+    ctx.lineTo((0 * SCALEX) + offsety, (h * SCALEY) + offsetx);
+    //ctx.lineTo((0 * SCALEX) + offsetx, (0 * SCALEY) + offsety + 10);
+   ctx.lineTo((2 * SCALEX) + offsetx, (h * SCALEY) + offsety + 20);
+
     ctx.stroke();
     ctx.closePath();
     counter++;
+    pos++;
 
     if (counter > max) {
-      ctx.translate(10 * SCALEX, 10 * SCALEY);
-      ctx.rotate(185 * (Math.PI / 180));
-      ctx.scale(0.75, 0.75);
+      ctx.translate(5 * SCALEX, 5 * SCALEY) + offsety;
+      ctx.rotate(115 * (Math.PI / 180));
+      ctx.scale(0.95, 0.95);
       counter = 0;
     }
 
