@@ -20,7 +20,7 @@
   function render() {
     ctx.beginPath();
     ctx.lineWidth = 1 * counter;
-    ctx.strokeStyle = 'rgba(5, ' + Math.floor(Math.random() * counter * 10) + ', 255, 0.2)';
+    ctx.strokeStyle = 'rgba(105, ' + Math.floor(Math.random() * counter * 5) + ', 255, 0.2)';
     ctx.moveTo(0, 0);
     ctx.lineTo(100 * SCALEX, 10 * counter * SCALEY);
     ctx.lineTo(100 * SCALEX, 40 * counter * SCALEY);
